@@ -27,7 +27,7 @@ class RolePermissionSeeder extends Seeder
 
             // other singular action
             'apply job',
-            'top up wallet',
+            'topup wallet',
             'withdraw wallet',
         ];
 
