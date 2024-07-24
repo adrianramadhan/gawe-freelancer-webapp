@@ -33,12 +33,12 @@ class RolePermissionSeeder extends Seeder
 
         foreach ($permissions as $permission) {
             Permission::firstOrCreate([
-                'name' => $permission
+                'name' => $permission,
             ]);
         }
 
         $clientRole = Role::firstOrCreate([
-            'name' => 'project_client'
+            'name' => 'project_client',
         ]);
         $clientPermissions = [
             'manage projects',
@@ -50,16 +50,13 @@ class RolePermissionSeeder extends Seeder
         $clientRole->syncPermissions($clientPermissions);
 
         $freelancerRole = Role::firstOrCreate([
-            'name' => 'project_freelancer'
+            'name' => 'project_freelancer',
         ]);
-        $freelancerPermissions = [
-            'apply job',
-            'withdraw wallet',
-        ];
+        $freelancerPermissions = ['apply job', 'withdraw wallet'];
         $freelancerRole->syncPermissions($freelancerPermissions);
 
         $superAdminRole = Role::firstOrCreate([
-            'name' => 'super_admin'
+            'name' => 'super_admin',
         ]);
 
         $user = User::create([
@@ -67,7 +64,8 @@ class RolePermissionSeeder extends Seeder
             'email' => 'super@admin.com',
             'occupation' => 'Owner',
             'connect' => 999,
-            'avatar' => 'https://ui-avatars.com/api/?name=Adrian+Ramadhan&color=7F9CF5&background=EBF4FF',
+            'avatar' =>
+                'https://ui-avatars.com/api/?name=Adrian+Ramadhan&color=7F9CF5&background=EBF4FF',
             'password' => bcrypt('password'),
         ]);
         $user->assignRole($superAdminRole);
