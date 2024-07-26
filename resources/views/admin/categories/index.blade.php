@@ -42,6 +42,8 @@
                 @empty
                 <p class="text-gray-300">Belum ada data kategori terbaru</p>
                 @endforelse
+
+                {{$categories->links()}}
             </div>
         </div>
     </div>
