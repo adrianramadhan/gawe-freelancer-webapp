@@ -17,37 +17,37 @@
                     </x-nav-link>
 
                     @role('super_admin')
-                    <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
+                    <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories*')">
                         {{ __('Categories') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('admin.withdrawals')" :active="request()->routeIs('admin.withdrawals')">
+                    <x-nav-link :href="route('admin.withdrawals')" :active="request()->routeIs('admin.withdrawals*')">
                         {{ __('Withdrawals') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('admin.topups')" :active="request()->routeIs('admin.topups')">
+                    <x-nav-link :href="route('admin.topups')" :active="request()->routeIs('admin.topups*')">
                         {{ __('Topups') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('admin.tools.index')" :active="request()->routeIs('admin.tools.index')">
+                    <x-nav-link :href="route('admin.tools.index')" :active="request()->routeIs('admin.tools*')">
                         {{ __('Tools') }}
                     </x-nav-link>
                     @endrole
 
                     @role('super_admin|project_client')
-                    <x-nav-link :href="route('admin.projects.index')" :active="request()->routeIs('admin.projects.index')">
+                    <x-nav-link :href="route('admin.projects.index')" :active="request()->routeIs('admin.projects*')">
                         {{ __('Project Listings') }}
                     </x-nav-link>
                     @endrole
 
                     @role('project_freelancer|project_client')
-                    <x-nav-link :href="route('dashboard.wallet')" :active="request()->routeIs('dashboard.wallet')">
+                    <x-nav-link :href="route('dashboard.wallet')" :active="request()->routeIs('dashboard.wallet*')">
                         {{ __('My Wallet') }}
                     </x-nav-link>
                     @endrole
 
                     @can('apply job')
-                    <x-nav-link :href="route('dashboard.proposals')" :active="request()->routeIs('dashboard.proposals')">
+                    <x-nav-link :href="route('dashboard.proposals')" :active="request()->routeIs('dashboard.proposals*')">
                         {{ __('My Proposals') }}
                     </x-nav-link>
                     @endcan
