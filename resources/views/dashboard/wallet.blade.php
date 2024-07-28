@@ -30,7 +30,8 @@
                         </svg>
                         <div>
                             <p class="text-slate-400 text-sm">Total Balance</p>
-                            <h3 class="text-gray-200 text-xl font-bold">Rp 0</h3>
+                            <h3 class="text-gray-200 text-xl font-bold">Rp {{number_format(Auth::user()->wallet->balance, 0, ',', '.')}}</h3>
+
                         </div>
                     </div>
                     <div class="flex flex-row gap-x-5">

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\WalletTransaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class WalletTransactionController extends Controller
 {
@@ -72,6 +74,34 @@ class WalletTransactionController extends Controller
     public function update(Request $request, WalletTransaction $walletTransaction)
     {
         //
+        $user_to_be_approve = User::where('id', $walletTransaction->user_id)->first();
+
+        DB::transaction(function () use ($request, $walletTransaction, $user_to_be_approve) {
+            if ($walletTransaction->type == 'Withdraw') {
+                if ($request->hasFile('proof')) {
+                    $proofPath = $request->file('proof')->store('proofs', 'public');
+                }
+                $walletTransaction->update([
+                    'proof' => $proofPath,
+                    'is_paid' => true,
+                ]);
+            }
+
+            else if ($walletTransaction->type == 'Topup') {
+                $walletTransaction->update([
+                    'is_paid' => true,
+                ]);
+
+                $user_to_be_approve->wallet->increment('balance', $walletTransaction->amount);
+            }
+        });
+
+        if ($walletTransaction->type == 'Withdraw') {
+            return redirect()->route('admin.withdrawals');
+        }
+        else {
+            return redirect()->route('admin.topups');
+        }
     }
 
     /**
