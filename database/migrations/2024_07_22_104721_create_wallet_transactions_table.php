@@ -18,9 +18,9 @@ return new class extends Migration
             $table->boolean('is_paid');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('amount');
-            $table->string('bank_name');
-            $table->string('bank_account_name');
-            $table->string('bank_account_number');
+            $table->string('bank_name')->nullable();
+            $table->string('bank_account_name')->nullable();
+            $table->string('bank_account_number')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

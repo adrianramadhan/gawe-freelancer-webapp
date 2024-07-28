@@ -34,12 +34,12 @@
                         </div>
                     </div>
                     <div class="flex flex-row gap-x-5">
-                        <a href="#"
+                        <a href="{{route('dashboard.wallet.withdraw')}}"
                             class="font-bold py-4 px-6 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full transition duration-300 ease-in-out">
                             Request Withdraw
                         </a>
 
-                        <a href="#"
+                        <a href="{{route('dashboard.wallet.topup')}}"
                             class="font-bold py-4 px-6 bg-green-600 hover:bg-green-700 text-white rounded-full transition duration-300 ease-in-out">
                             Topup Wallet
                         </a>
@@ -69,7 +69,7 @@
                             </svg>
                             <div>
                                 <p class="text-slate-400 text-sm">Total Amount</p>
-                                <h3 class="text-gray-200 text-xl font-bold">Rp {{ $transaction->amount }}</h3>
+                                <h3 class="text-gray-200 text-xl font-bold">Rp {{ number_format($transaction->amount, 0, ',', '.') }}</h3>
                             </div>
                         </div>
 
