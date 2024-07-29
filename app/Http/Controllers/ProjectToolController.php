@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProjectTool;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProjectToolController extends Controller
 {
@@ -60,6 +61,24 @@ class ProjectToolController extends Controller
      */
     public function destroy(ProjectTool $projectTool)
     {
-        //
+        DB::beginTransaction();
+
+        try {
+            // Get the project ID from the pivot table to redirect back to the tools page
+            $project = $projectTool->project_id;
+
+            // Delete the pivot record
+            $projectTool->delete();
+
+            DB::commit();
+
+            return redirect()->route('admin.projects.tools', $project)
+                ->with('success', 'Tool removed from the project successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return redirect()->route('admin.projects.tools', $project)
+                ->with('error', 'Failed to remove the tool from the project.');
+        }
     }
 }

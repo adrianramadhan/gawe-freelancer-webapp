@@ -6,6 +6,7 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectApplicantController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectToolController;
 use App\Http\Controllers\ToolController;
 use App\Http\Controllers\WalletTransactionController;
 use Illuminate\Support\Facades\Route;
@@ -84,7 +85,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/project/{project}/tools/store', [ProjectController::class, 'tools_store']
             )->name('projects.tools.store');
 
-            Route::resource('projects_tools', ProjectController::class);
+            Route::resource('projects_tools', ProjectToolController::class);
         });
 
         Route::middleware('can:manage categories')->group(function () {
