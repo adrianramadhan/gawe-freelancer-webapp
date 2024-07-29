@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -13,6 +14,20 @@ class ProjectController extends Controller
     public function index()
     {
         //
+        $user = Auth::user();
+
+        $projectQuery = Project::with(['category', 'applicants'])->orderByDesc('created_at');
+
+        if ($user->hasRole('project_client')) {
+            // filter data project by client id and user id
+            $projectQuery->whereHas('owner', function ($query) use ($user) {
+                $query->where('client_id', $user->id);
+            });
+        }
+
+        $projects = $projectQuery->paginate(10);
+
+        return view('admin.projects.index', compact('projects'));
     }
 
     /**
