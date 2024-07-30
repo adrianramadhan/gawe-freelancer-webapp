@@ -65,19 +65,19 @@ class ProjectToolController extends Controller
 
         try {
             // Get the project ID from the pivot table to redirect back to the tools page
-            $project = $projectTool->project_id;
+            $projectId = $projectTool->project_id;
 
             // Delete the pivot record
             $projectTool->delete();
 
             DB::commit();
 
-            return redirect()->route('admin.projects.tools', $project)
+            return redirect()->route('admin.projects.tools', $projectId)
                 ->with('success', 'Tool removed from the project successfully.');
         } catch (\Exception $e) {
             DB::rollBack();
 
-            return redirect()->route('admin.projects.tools', $project)
+            return redirect()->route('admin.projects.tools', $projectId)
                 ->with('error', 'Failed to remove the tool from the project.');
         }
     }
