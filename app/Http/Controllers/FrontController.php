@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreApplicantRequest;
 use App\Models\Category;
 use App\Models\Project;
-use Illuminate\Http\Request;
+use App\Models\ProjectApplicant;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class FrontController extends Controller
 {
@@ -23,5 +26,45 @@ class FrontController extends Controller
     public function details(Project $project){
         $projects = Project::orderByDesc('id')->get();
         return view('front.details', compact('project', 'projects'));
+    }
+
+    public function apply_job(Project $project){
+        $user = Auth()->user();
+
+        if ($user->hasAppliedProject($project->id)) {
+            return redirect()->route('dashboard.proposals');
+        }
+
+        if ($user->connect = 0) {
+            return redirect()->route('front.out_of_connect');
+        }
+
+        if ($project->has_started) {
+            return redirect()->route('front.details', $project->slug);
+        }
+
+        return view('front.apply', compact('project'));
+    }
+
+    public function apply_job_store(StoreApplicantRequest $request, Project $project){
+        $user = Auth()->user();
+
+        if ($user->connect = 0) {
+            return redirect()->route('front.out_of_connect');
+        } else {
+            $user->decrement('connect', 1);
+        }
+
+        DB::transaction(function () use ($request, $project, $user){
+            $validated = $request->validated();
+
+            $validated['freelancer_id'] = $user->id;
+            $validated['project_id'] = $project->id;
+            $validated['status'] = 'Waiting';
+
+            $newApplyJob = ProjectApplicant::create($validated);
+        });
+
+        return redirect()->route('front.details', $project->slug);
     }
 }
