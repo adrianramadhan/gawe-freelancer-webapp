@@ -11,6 +11,16 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+
+    public function proposals()
+    {
+        $user = Auth::user();
+
+        $proposals = $user->proposals;
+
+        return view('dashboard.proposals', compact('proposals'));
+    }
+
     public function wallet()
     {
         $user = Auth::user();
