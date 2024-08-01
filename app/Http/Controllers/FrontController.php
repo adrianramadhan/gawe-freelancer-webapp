@@ -19,4 +19,9 @@ class FrontController extends Controller
     public function  category(Category $category){
         return view('front.category', compact('category'));
     }
+
+    public function details(Project $project){
+        $projects = Project::orderByDesc('id')->get();
+        return view('front.details', compact('project', 'projects'));
+    }
 }
