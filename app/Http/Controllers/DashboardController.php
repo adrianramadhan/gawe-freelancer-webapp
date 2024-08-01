@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTopupWalletRequest;
 use App\Http\Requests\StoreWithdrawWalletRequest;
+use App\Models\Project;
+use App\Models\ProjectApplicant;
 use App\Models\WalletTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,11 +16,16 @@ class DashboardController extends Controller
 
     public function proposals()
     {
-        $user = Auth::user();
-
-        $proposals = $user->proposals;
-
         return view('dashboard.proposals', compact('proposals'));
+    }
+
+    public function proposal_details(Project $project, ProjectApplicant $projectApplicant)
+    {
+        if($projectApplicant->freelancer_id != Auth::user()->id){
+            abort(403, 'Unauthorized');
+        }
+
+        return view('dashboard.proposal_details', compact('project', 'projectApplicant'));
     }
 
     public function wallet()
