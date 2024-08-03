@@ -146,3 +146,24 @@ flowchart TD
     FR6 --> |Accepted| CL6
     FR6 --> |Rejected| FR3
 ```
+
+## Explanation
+### Super Admin Flow:
+- Manage Users: Add, edit, and delete users.
+- Manage Projects: Oversee project creation and updates.
+- Manage Categories and Tools: Organize and maintain categories and tools used in projects.
+- View Reports: Generate reports for analysis and decision-making.
+### Client Flow:
+- Create Project: Clients submit details to create a new project.
+- View Project Status: Track the progress of their projects.
+- Manage Budget: Adjust the budget for projects as needed.
+- Review Freelancers: Provide feedback on freelancer performance.
+### Freelancer Flow:
+- Browse Projects: Search for projects matching their skills.
+- Apply for Projects: Submit applications to participate in projects.
+- Manage Applications: Monitor the status of their applications.
+- View Wallet: Manage finances, including withdrawing funds and viewing transaction history.
+### Interactions and Decisions
+- Super Admin needs to approve projects before they become available to clients and freelancers.
+- Freelancers apply to projects, and clients review their applications and provide feedback.
+- Decisions made by clients or admins affect the flow, such as application approvals or rejections.
